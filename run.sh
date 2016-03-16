@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
-SPARK_HOME=${1:-"$HOME/work/spark-1.5.2-shell"}
+source settings.sh
+SPARK_HOME=${1:-"$HOME/work/spark-1.6.1-bin-hadoop2.6"}
 EXAMPLE_CLASS="SparkAqlExample"
 SCALA_VERSION="2.11"
 PROJECT_VERSION="0.1.0"
