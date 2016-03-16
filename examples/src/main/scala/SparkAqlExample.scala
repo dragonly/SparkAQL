@@ -2,9 +2,11 @@
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
+import org.fudan.SparkAql.aql._
 
 object SparkAqlExample{
   def main(args: Array[String]) {
+    val hi = Hi
     val logFile = "/home/dragonly/work/spark-1.5.2-shell/README.md" // Should be some file on your system
     val conf = new SparkConf().setAppName("Simple Application").setMaster("local")
     val sc = new SparkContext(conf)

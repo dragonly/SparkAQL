@@ -1,8 +1,4 @@
 [repositories]
   local
   oschina:http://maven.oschina.net/content/groups/public/ 
-
-[repositories]
-  local
-  oschina:http://maven.oschina.net/content/groups/public/ 
   oschina-ivy:http://maven.oschina.net/content/groups/public/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext] 
