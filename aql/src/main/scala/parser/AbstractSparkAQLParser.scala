@@ -1,6 +1,7 @@
 package parser
 
 import plan.logical.LogicalPlan
+
 import scala.util.parsing.combinator.lexical.StdLexical
 import scala.util.parsing.combinator.syntactical.StandardTokenParsers
 import scala.util.parsing.input.CharArrayReader._
@@ -36,6 +37,9 @@ abstract class AbstractSparkAQLParser extends StandardTokenParsers {
     def normalize: String = lexical.normalizeKeyword(str)
     def parser: Parser[String] = normalize
   }
+
+  //implicit change keyword to Parser[String]
+  protected implicit def asParser(k: Keyword): Parser[String] = k.parser
 
 }
 

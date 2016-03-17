@@ -9,7 +9,8 @@ object SparkAqlExample{
     val conf = new SparkConf().setAppName("Simple Application").setMaster("local")
     val sc = new SparkContext(conf)
     hi.hi
-    val test = AqlParser.parse("create view instrument")
-    println(test)
+    val test1 = AqlParser.parse("create view instrument")
+    println(test1)
+
   }
 }
