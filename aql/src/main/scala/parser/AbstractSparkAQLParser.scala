@@ -1,7 +1,5 @@
 package SparkAql.aql.parser
 
-import SparkAql.aql.plan.logical.LogicalPlan
-
 import scala.util.parsing.combinator.lexical.StdLexical
 import scala.util.parsing.combinator.syntactical.StandardTokenParsers
 import scala.util.parsing.input.CharArrayReader._
