@@ -9,12 +9,12 @@ object AqlParser extends AbstractSparkAQLParser {
   protected val VIEW = Keyword("VIEW")
 
 
+
   protected lazy val start: Parser[LogicalPlan] = view1
 
   protected lazy val view1: Parser[LogicalPlan] =
-    "create" ~> "view" ~> ident ^^ {
+    CREATE ~> VIEW ~> ident ^^ {
       case str => TestStr(str)
     }
-
 
 }
