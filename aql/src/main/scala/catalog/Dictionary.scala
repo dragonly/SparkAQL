@@ -8,19 +8,19 @@ import java.util.concurrent.ConcurrentHashMap
 class Dictionary {
   private[this] val dictionaries = new ConcurrentHashMap[String,Seq[String]]
 
-  def registerDic(name: String, tokens: Seq[String]): Unit ={
+  def registerDict(name: String, tokens: Seq[String]): Unit ={
     dictionaries.put(name, tokens)
   }
 
-  def unregisterAllDics(): Unit ={
+  def unregisterAllDicts(): Unit ={
     dictionaries.clear()
   }
 
-  def dicExists(name: String): Boolean ={
+  def dictExists(name: String): Boolean ={
     dictionaries.contains(name)
   }
 
-  def lookforDic(name: String): Seq[String] ={
+  def lookforDict(name: String): Seq[String] ={
     dictionaries.get(name)
   }
 
