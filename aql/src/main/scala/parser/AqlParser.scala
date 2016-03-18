@@ -1,6 +1,6 @@
-package parser
+package SparkAql.aql.parser
 
-import plan.logical.{TestStr,LogicalPlan}
+import SparkAql.aql.plan.logical.{TestStr,LogicalPlan}
 
 /**
  * Created by simon on 16-3-17.

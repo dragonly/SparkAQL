@@ -1,6 +1,6 @@
-package parser
+package SparkAql.aql.parser
 
-import plan.logical.LogicalPlan
+import SparkAql.aql.plan.logical.LogicalPlan
 
 import scala.util.parsing.combinator.lexical.StdLexical
 import scala.util.parsing.combinator.syntactical.StandardTokenParsers

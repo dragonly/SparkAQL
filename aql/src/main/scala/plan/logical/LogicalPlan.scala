@@ -1,6 +1,6 @@
-package plan.logical
+package SparkAql.aql.plan.logical
 
-import plan.TreeNode
+import SparkAql.aql.plan.TreeNode
 
 abstract class LogicalPlan extends TreeNode[LogicalPlan] {
   private var _analyzed: Boolean = false

@@ -1,4 +1,4 @@
-package plan
+package SparkAql.aql.plan
 
 /**
  * Created by simon on 16-3-17.
