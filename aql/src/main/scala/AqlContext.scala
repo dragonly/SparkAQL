@@ -1,3 +1,4 @@
+package SparkAql.aql
 import SparkAql.aql.catalog.Dictionary
 import org.apache.spark.SparkContext
 
