@@ -1,13 +1,11 @@
-package parser
+package SparkAql.aql.parser
 
-import plan.logical.LogicalPlan
 import scala.util.parsing.combinator.lexical.StdLexical
 import scala.util.parsing.combinator.syntactical.StandardTokenParsers
 import scala.util.parsing.input.CharArrayReader._
 
-/**
- * Created by simon on 16-3-17.
- */
+import SparkAql.aql.plan.logical.LogicalPlan
+
 abstract class AbstractSparkAQLParser extends StandardTokenParsers {
 
   def parse(input: String): LogicalPlan = synchronized {
