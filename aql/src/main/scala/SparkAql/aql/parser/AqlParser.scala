@@ -16,8 +16,8 @@ object AqlParser extends AbstractSparkAQLParser {
   protected lazy val start: Parser[LogicalPlan] = dictView
 
   protected lazy val dictView: Parser[LogicalPlan] =
-    EXTRACT ~> DICTIONARY ~> ident ~ (AS ~> ident) <~ FROM <~ DOCUMENT^^ {
-      case dictName ~ viewName => UnresolvedDictView(dictName,viewName)
+    EXTRACT ~> DICTIONARY ~> ident ~ (AS ~> ident) <~ FROM <~ DOCUMENT ^^ {
+      case dictName ~ viewName => UnresolvedDictView(dictName, viewName)
     }
 
 }

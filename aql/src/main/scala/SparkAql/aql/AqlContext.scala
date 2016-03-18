@@ -6,22 +6,22 @@ import SparkAql.aql.plan.logical.LogicalPlan
 import org.apache.spark.SparkContext
 
 /**
- * AQL context: register Dic, execute AQL queries
- */
+  * AQL context: register Dic, execute AQL queries
+  */
 class AqlContext(sparkContext: SparkContext) {
 
   @transient
   protected lazy val dictionaries = new Dictionary
 
-  def registerDictionary(DictName: String, tokens: Seq[String]): Unit ={
+  def registerDictionary(DictName: String, tokens: Seq[String]): Unit = {
     dictionaries.registerDict(DictName, tokens)
   }
 
-  def lookforDict(DictName: String): Seq[String] ={
+  def lookforDict(DictName: String): Seq[String] = {
     dictionaries.lookforDict(DictName)
   }
 
-  def aql(input: String): LogicalPlan ={
+  def aql(input: String): LogicalPlan = {
     AqlParser.parse(input)
   }
 

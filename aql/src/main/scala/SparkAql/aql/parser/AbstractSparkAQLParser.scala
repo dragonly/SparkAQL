@@ -32,6 +32,7 @@ abstract class AbstractSparkAQLParser extends StandardTokenParsers {
 
   protected case class Keyword(str: String) {
     def normalize: String = lexical.normalizeKeyword(str)
+
     def parser: Parser[String] = normalize
   }
 
@@ -41,6 +42,7 @@ abstract class AbstractSparkAQLParser extends StandardTokenParsers {
 }
 
 class AqlLexical extends StdLexical {
+
   case class DecimalLit(chars: String) extends Token {
     override def toString: String = chars
   }
@@ -54,7 +56,7 @@ class AqlLexical extends StdLexical {
   /* Normal the keyword string */
   def normalizeKeyword(str: String): String = str.toLowerCase
 
-  delimiters += (
+  delimiters +=(
     "@", "*", "+", "-", "<", "=", "<>", "!=", "<=", ">=", ">", "/", "(", ")",
     ",", ";", "%", "{", "}", ":", "[", "]", ".", "&", "|", "^", "~", "<=>"
     )
@@ -66,23 +68,17 @@ class AqlLexical extends StdLexical {
 
 
   override lazy val token: Parser[Token] =
-    ( rep1(digit) ~ scientificNotation ^^ { case i ~ s => DecimalLit(i.mkString + s) }
-      | '.' ~> (rep1(digit) ~ scientificNotation) ^^
-      { case i ~ s => DecimalLit("0." + i.mkString + s) }
-      | rep1(digit) ~ ('.' ~> digit.*) ~ scientificNotation ^^
-      { case i1 ~ i2 ~ s => DecimalLit(i1.mkString + "." + i2.mkString + s) }
-      | digit.* ~ identChar ~ (identChar | digit).* ^^
-      { case first ~ middle ~ rest => processIdent((first ++ (middle :: rest)).mkString) }
+    (rep1(digit) ~ scientificNotation ^^ { case i ~ s => DecimalLit(i.mkString + s) }
+      | '.' ~> (rep1(digit) ~ scientificNotation) ^^ { case i ~ s => DecimalLit("0." + i.mkString + s) }
+      | rep1(digit) ~ ('.' ~> digit.*) ~ scientificNotation ^^ { case i1 ~ i2 ~ s => DecimalLit(i1.mkString + "." + i2.mkString + s) }
+      | digit.* ~ identChar ~ (identChar | digit).* ^^ { case first ~ middle ~ rest => processIdent((first ++ (middle :: rest)).mkString) }
       | rep1(digit) ~ ('.' ~> digit.*).? ^^ {
       case i ~ None => NumericLit(i.mkString)
       case i ~ Some(d) => DecimalLit(i.mkString + "." + d.mkString)
     }
-      | '\'' ~> chrExcept('\'', '\n', EofCh).* <~ '\'' ^^
-      { case chars => StringLit(chars mkString "") }
-      | '"' ~> chrExcept('"', '\n', EofCh).* <~ '"' ^^
-      { case chars => StringLit(chars mkString "") }
-      | '`' ~> chrExcept('`', '\n', EofCh).* <~ '`' ^^
-      { case chars => Identifier(chars mkString "") }
+      | '\'' ~> chrExcept('\'', '\n', EofCh).* <~ '\'' ^^ { case chars => StringLit(chars mkString "") }
+      | '"' ~> chrExcept('"', '\n', EofCh).* <~ '"' ^^ { case chars => StringLit(chars mkString "") }
+      | '`' ~> chrExcept('`', '\n', EofCh).* <~ '`' ^^ { case chars => Identifier(chars mkString "") }
       | EofCh ^^^ EOF
       | '\'' ~> failure("unclosed string literal")
       | '"' ~> failure("unclosed string literal")
@@ -98,7 +94,7 @@ class AqlLexical extends StdLexical {
     }
 
   override def whitespace: Parser[Any] =
-    ( whitespaceChar
+    (whitespaceChar
       | '/' ~ '*' ~ comment
       | '/' ~ '/' ~ chrExcept(EofCh, '\n').*
       | '#' ~ chrExcept(EofCh, '\n').*
