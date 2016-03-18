@@ -2,9 +2,6 @@ package SparkAql.aql.parser
 
 import SparkAql.aql.plan.logical.{TestStr,LogicalPlan}
 
-/**
- * Created by simon on 16-3-17.
- */
 object AqlParser extends AbstractSparkAQLParser {
 
   //keywords
