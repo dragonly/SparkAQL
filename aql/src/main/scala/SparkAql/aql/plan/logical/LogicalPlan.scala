@@ -38,5 +38,5 @@ abstract class BinaryNode extends LogicalPlan {
 
   def right: LogicalPlan
 
-  override def children: Seq[LogicalPlan] = Seq(left, right)
+  override def children: Seq[LogicalPlan] = left :: right :: Nil
 }

@@ -8,7 +8,7 @@ import org.apache.spark.SparkContext
 /**
   * AQL context: register Dic, execute AQL queries
   */
-class AqlContext(sparkContext: SparkContext) {
+class AqlContext(@transient val sparkContext: SparkContext) {
 
   @transient
   protected lazy val dictionaries = new Dictionary
