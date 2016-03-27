@@ -17,7 +17,7 @@ class Dictionary {
   }
 
   def dictExists(name: String): Boolean = {
-    dictionaries.contains(name)
+    dictionaries.containsKey(name)
   }
 
   def lookforDict(name: String): Seq[String] = {

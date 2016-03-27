@@ -9,12 +9,16 @@ object Example {
     val sc = new SparkContext(conf)
     val aqlContext = new AqlContext(sc)
 
-    val instrument = Seq("pipe", "flute")
-    aqlContext.registerDictionary("instrument", instrument)
-    val test1 = aqlContext.lookforDict("instrument")
-    val test2 = aqlContext.aql("extract dictionary instrument as insInstance from document")
+    //set document
+    val people = sc.textFile("file:///home/simon/Code/test/people.txt")
+    aqlContext.setDocument(people)
 
-    println("Dictionary instrument: " + test1)
-    println(test2)
+    val badBoys = Seq("Simon", "Suen")
+    aqlContext.registerDictionary("badboys", badBoys)
+
+
+    val bbView = aqlContext.aql("extract dictionary badboys as BadBoys from document")
+    bbView.printPlan()
+
   }
 }

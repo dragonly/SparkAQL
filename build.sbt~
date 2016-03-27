@@ -3,7 +3,7 @@ val libSpark = "org.apache.spark" %% "spark-core" % "1.6.1"
 lazy val commonSettings = Seq(
   organization := "org.fudan",
   version := "0.1.0",
-  scalaVersion := "2.10.5"
+  scalaVersion := "2.11.7"
 )
 
 lazy val aql = (project in file("aql")).    

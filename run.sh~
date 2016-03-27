@@ -3,7 +3,7 @@
 source ./settings.sh
 # SPARK_HOME=${1:-"$HOME/work/spark-1.6.1-bin-hadoop2.6"}
 EXAMPLE_CLASS="SparkAql.examples.Example"
-SCALA_VERSION="2.10"
+SCALA_VERSION="2.11"
 PROJECT_VERSION="0.1.0"
 
 # set sbt repositories to China mirrors if necessary
