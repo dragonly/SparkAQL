@@ -15,7 +15,7 @@ class View(val aqlContext: AqlContext, val queryExecution: QueryExecution) {
   def this(aqlContext: AqlContext, logicalPlan: LogicalPlan) = {
     this(aqlContext, {
       val qe = aqlContext.executePlan(logicalPlan)
-//      qe.assertAnalyzed()
+      qe.assertAnalyzed()
       qe
     })
   }
