@@ -10,7 +10,7 @@ object Example {
     val aqlContext = new AqlContext(sc)
 
     //set document
-    val people = sc.textFile("file:///home/simon/Code/test/people.txt")
+    val people = sc.textFile("people.txt")
     aqlContext.setDocument(people)
 
     val badBoys = Seq("Simon", "Suen")
