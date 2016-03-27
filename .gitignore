@@ -3,3 +3,4 @@ settings.sh
 .idea/
 *.iml
 proxy.sh
+*~
