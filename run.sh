@@ -14,7 +14,7 @@ then
 fi
 
 echo "sbt package"
-sbt package
+sbt package -feature
 
 ${SPARK_HOME}/bin/spark-submit\
     --jars aql/target/scala-${SCALA_VERSION}/spark-aql_${SCALA_VERSION}-${PROJECT_VERSION}.jar\
