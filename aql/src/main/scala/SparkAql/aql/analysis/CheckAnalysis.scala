@@ -1,7 +1,7 @@
 package SparkAql.aql.analysis
 
 import SparkAql.aql.exception.AnalysisException
-import SparkAql.aql.plan.logical.{UnresolvedDictView, LogicalPlan}
+import SparkAql.aql.plan.logical.{LogicalPlan, UnresolvedDictView}
 
 /**
  * Throws user facing errors when passed invalid queries that fail to analyze.

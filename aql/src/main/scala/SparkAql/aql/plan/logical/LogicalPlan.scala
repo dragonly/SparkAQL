@@ -38,14 +38,14 @@ abstract class LogicalPlan extends TreeNode[LogicalPlan] {
 /**
   * A logical plan node with no children.
   */
-abstract class LeafNode extends LogicalPlan {
+abstract class LeafLogicalNode extends LogicalPlan {
   override def children: Seq[LogicalPlan] = Nil
 }
 
 /**
   * A logical plan node with single child.
   */
-abstract class UnaryNode extends LogicalPlan {
+abstract class UnaryLogicalNode extends LogicalPlan {
   def child: LogicalPlan
 
   override def children: Seq[LogicalPlan] = child :: Nil
@@ -54,7 +54,7 @@ abstract class UnaryNode extends LogicalPlan {
 /**
   * A logical plan node with a left and right child.
   */
-abstract class BinaryNode extends LogicalPlan {
+abstract class BinaryLogicalNode extends LogicalPlan {
   def left: LogicalPlan
 
   def right: LogicalPlan

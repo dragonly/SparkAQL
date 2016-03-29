@@ -1,8 +1,8 @@
 package SparkAql.aql.model
 
-import SparkAql.aql.AqlContext
-import SparkAql.aql.execution.QueryExecution
 import SparkAql.aql.plan.logical.LogicalPlan
+import SparkAql.aql.{AqlContext, QueryExecution}
+import org.apache.spark.rdd.RDD
 
 /**
  * abstract Relation of tuple
@@ -20,9 +20,21 @@ class View(val aqlContext: AqlContext, val queryExecution: QueryExecution) {
     })
   }
 
+  /**
+   * Represents the content of the View as an RDD of Tuples.
+   */
+  lazy val rdd: RDD[Tuple] = {
+    queryExecution.toRdd
+  }
+
+
+
+
   def printPlan(): Unit ={
     println(queryExecution.analyzed)
   }
+
+
 
 }
 

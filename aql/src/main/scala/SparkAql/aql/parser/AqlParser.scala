@@ -1,6 +1,6 @@
 package SparkAql.aql.parser
 
-import SparkAql.aql.plan.logical.{UnresolvedDictView, LogicalPlan}
+import SparkAql.aql.plan.logical.{LogicalPlan, UnresolvedDictView}
 
 object AqlParser extends AbstractSparkAQLParser {
 

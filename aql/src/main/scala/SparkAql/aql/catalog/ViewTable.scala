@@ -1,10 +1,11 @@
 package SparkAql.aql.catalog
 
 import java.util.concurrent.ConcurrentHashMap
+
 import SparkAql.aql.plan.logical.LogicalPlan
 
 /**
- * a catlog which stores <ViewName, Analyzed LogicalPlan>
+ * a catalog which stores <ViewName, Analyzed LogicalPlan>
  */
 class ViewTable {
   private[this] val views = new ConcurrentHashMap[String, LogicalPlan]

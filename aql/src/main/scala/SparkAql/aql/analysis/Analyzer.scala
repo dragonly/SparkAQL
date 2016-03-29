@@ -2,7 +2,7 @@ package SparkAql.aql.analysis
 
 import SparkAql.aql.AqlContext
 import SparkAql.aql.plan.logical._
-import SparkAql.aql.rule.{RuleExecutor,Rule}
+import SparkAql.aql.rule.{Rule, RuleExecutor}
 
 /**
  * Unresolved LogicPlan => Resolved LogicPlan
