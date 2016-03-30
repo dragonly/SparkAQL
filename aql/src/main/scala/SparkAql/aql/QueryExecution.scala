@@ -8,7 +8,7 @@ import org.apache.spark.rdd.RDD
 /**
  * The primary workflow for executing relational queries using Spark.
  */
-class QueryExecution(val aqlContext: AqlContext, val logical: LogicalPlan) {
+class QueryExecution(val aqlContext: AqlContext, val logical: LogicalPlan) extends Serializable{
 
   def assertAnalyzed(): Unit = aqlContext.analyzer.checkAnalysis(analyzed)
   lazy val analyzed: LogicalPlan = aqlContext.analyzer.execute(logical)

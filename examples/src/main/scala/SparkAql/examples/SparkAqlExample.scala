@@ -19,12 +19,16 @@ object Example {
 
     val bbView = aqlContext.aql("extract dictionary badboys as BadBoys from document")
 
-    val bb = bbView.rdd.collect()
-
-    for(tuple <- bb){
+    val bbTuple = bbView.rdd.collect()
+    for(tuple <- bbTuple){
       for(span <- tuple.spans){
         println(span)
       }
+    }
+
+    val bbText = bbView.textRdd.collect()
+    for(elem <- bbText){
+      println(elem)
     }
 
   }

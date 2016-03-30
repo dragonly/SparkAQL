@@ -15,7 +15,7 @@ import org.apache.spark.rdd.RDD
   * AQL context: register Dic, execute AQL queries
   */
 
-class AqlContext(@transient val sparkContext: SparkContext) {
+class AqlContext(@transient val sparkContext: SparkContext) extends Serializable{
   // doc Text
   private var docText: String = ""
   private var _docSet: Boolean = false
