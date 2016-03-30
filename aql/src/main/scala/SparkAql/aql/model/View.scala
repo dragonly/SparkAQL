@@ -28,8 +28,6 @@ class View(val aqlContext: AqlContext, val queryExecution: QueryExecution) {
   }
 
 
-
-
   def printPlan(): Unit ={
     println(queryExecution.analyzed)
   }

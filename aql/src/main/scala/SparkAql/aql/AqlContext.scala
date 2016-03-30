@@ -159,7 +159,7 @@ object AqlContext{
     activeContext.remove()
   }
 
-  private[sql] def getActive(): Option[AqlContext] = {
+  private[aql] def getActive(): Option[AqlContext] = {
     Option(activeContext.get())
   }
 
