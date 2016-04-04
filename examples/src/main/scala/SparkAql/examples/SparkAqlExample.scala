@@ -17,17 +17,35 @@ object Example {
     aqlContext.registerDictionary("badboys", badBoys)
 
 
-    val bbView = aqlContext.aql("extract dictionary badboys as BadBoys from document")
+    val dictView = aqlContext.aql("extract dictionary badboys as BadBoys from document")
+    // \'regex\'
+    val regexView = aqlContext.aql("extract regex \'[M][\\p{Lower}]+\' as GoodBoys from document")
 
-    val bbTuple = bbView.rdd.collect()
+    println("=====Dictionary View=====")
+    println("spans:")
+    val bbTuple = dictView.rdd.collect()
     for(tuple <- bbTuple){
       for(span <- tuple.spans){
         println(span)
       }
     }
-
-    val bbText = bbView.textRdd.collect()
+    println("text:")
+    val bbText = dictView.textRdd.collect()
     for(elem <- bbText){
+      println(elem)
+    }
+
+    println("=====Regex View=====")
+    println("spans:")
+    val gbTuple = regexView.rdd.collect()
+    for(tuple <- gbTuple){
+      for(span <- tuple.spans){
+        println(span)
+      }
+    }
+    println("text:")
+    val gbText = regexView.textRdd.collect()
+    for(elem <- gbText){
       println(elem)
     }
 

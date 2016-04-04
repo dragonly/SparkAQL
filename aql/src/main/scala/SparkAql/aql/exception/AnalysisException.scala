@@ -9,3 +9,5 @@ class AnalysisException(message: String) extends Exception{
     message
   }
 }
+
+class RegexException extends Exception

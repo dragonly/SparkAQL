@@ -1,6 +1,6 @@
 package SparkAql.aql.parser
 
-import SparkAql.aql.plan.logical.{LogicalPlan, UnresolvedDictView}
+import SparkAql.aql.plan.logical.{UnresolvedRegexView, LogicalPlan, UnresolvedDictView}
 
 object AqlParser extends AbstractSparkAQLParser {
 
@@ -10,14 +10,20 @@ object AqlParser extends AbstractSparkAQLParser {
   protected val AS = Keyword("AS")
   protected val EXTRACT = Keyword("EXTRACT")
   protected val DICTIONARY = Keyword("DICTIONARY")
+  protected val REGEX = Keyword("REGEX")
   protected val FROM = Keyword("FROM")
   protected val DOCUMENT = Keyword("DOCUMENT")
 
-  protected lazy val start: Parser[LogicalPlan] = dictView
+  protected lazy val start: Parser[LogicalPlan] = dictView|regexView
 
   protected lazy val dictView: Parser[LogicalPlan] =
     EXTRACT ~> DICTIONARY ~> ident ~ (AS ~> ident) <~ FROM <~ DOCUMENT ^^ {
       case dictName ~ viewName => UnresolvedDictView(dictName, viewName)
+    }
+
+  protected lazy val regexView: Parser[LogicalPlan] =
+    EXTRACT ~> REGEX ~> stringLit ~ (AS ~> ident) <~ FROM <~ DOCUMENT ^^ {
+      case regex ~ viewName => UnresolvedRegexView(regex, viewName)
     }
 
 }

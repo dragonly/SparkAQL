@@ -1,8 +1,8 @@
 package SparkAql.aql.execution
 
 import SparkAql.aql.AqlContext
-import SparkAql.aql.plan.logical.{LogicalPlan, ResolvedDictView}
-import SparkAql.aql.plan.physical.{PhysicalDictView, SparkPlan}
+import SparkAql.aql.plan.logical.{ResolvedRegexView, LogicalPlan, ResolvedDictView}
+import SparkAql.aql.plan.physical.{PhysicalRegexView, PhysicalDictView, SparkPlan}
 import org.apache.spark.SparkContext
 
 /**
@@ -22,6 +22,7 @@ class SparkPlanner(val aqlContext: AqlContext) extends QueryPlanner[SparkPlan]{
 
     def apply(plan: LogicalPlan): Seq[SparkPlan] = plan match {
       case ResolvedDictView(aqlContext, dictName) => PhysicalDictView(dictName)::Nil
+      case ResolvedRegexView(aqlContext, regex) => PhysicalRegexView(regex)::Nil
     }
   }
 

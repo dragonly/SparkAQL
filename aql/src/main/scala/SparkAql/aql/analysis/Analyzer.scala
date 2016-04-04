@@ -1,6 +1,9 @@
 package SparkAql.aql.analysis
 
+import java.util.regex.Pattern
+
 import SparkAql.aql.AqlContext
+import SparkAql.aql.exception.RegexException
 import SparkAql.aql.plan.logical._
 import SparkAql.aql.rule.{Rule, RuleExecutor}
 
@@ -14,7 +17,9 @@ class Analyzer(aqlContext: AqlContext, maxIterations: Int = 100)
 
   lazy val batches: Seq[Batch] = Seq(
     Batch("Resolution", fixedPoint,
-      ResolveDictView
+      ResolveDictView::
+      ResolveRegexView::
+        Nil: _*
       //a lot to do here...
     )
   )
@@ -29,14 +34,32 @@ class Analyzer(aqlContext: AqlContext, maxIterations: Int = 100)
             aqlContext.registerView(u.ViewName,res)
             res
           }else{
-            NoDictPlan("can't find dictionary $").failAnalysis()
+            ThrowablePlan(s"Can't find dictionary ${u.DictName}").failAnalysis()
           }
         }else{
-          NoDocPlan("No Document has been set").failAnalysis()
+          ThrowablePlan("No Document has been set").failAnalysis()
         }
 
     }
   }
 
+  object ResolveRegexView extends Rule[LogicalPlan] {
+
+    def apply(plan: LogicalPlan): LogicalPlan = plan resolveOperators {
+      case u: UnresolvedRegexView =>
+        if(aqlContext.docSet){
+          try {
+            Pattern.compile(u.regex)
+            val res = ResolvedRegexView(aqlContext,u.regex)
+            aqlContext.registerView(u.ViewName,res)
+            res
+          }catch {
+            case _: RegexException => ThrowablePlan(s"Regex ${u.regex} is wrong").failAnalysis()
+          }
+        }else{
+          ThrowablePlan("No Document has been set").failAnalysis()
+        }
+    }
+  }
 
 }

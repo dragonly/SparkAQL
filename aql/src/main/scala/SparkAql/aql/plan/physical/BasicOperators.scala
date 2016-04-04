@@ -1,6 +1,6 @@
 package SparkAql.aql.plan.physical
 
-import SparkAql.aql.execution.TextTokenizer
+import SparkAql.aql.execution.{TextRegexMatcher, TextTokenizer}
 import SparkAql.aql.model.{Span, Tuple}
 import org.apache.spark.rdd.RDD
 
@@ -19,6 +19,22 @@ case class PhysicalDictView(dictName: String) extends LeafSparkNode{
       if(dict.contains(elem.text)){
         matchList += new Tuple(new Span(elem.start,elem.end)::Nil)
       }
+    }
+
+    sparkContext.parallelize(matchList)
+  }
+
+}
+
+case class PhysicalRegexView(regex: String) extends LeafSparkNode{
+
+  override def doExecute(): RDD[Tuple] = {
+    val input = aqlContext.getDocument
+    val tokens = TextRegexMatcher(input,regex)
+    var matchList = ArrayBuffer[Tuple]()
+
+    for(elem <- tokens){
+        matchList += new Tuple(new Span(elem.start,elem.end)::Nil)
     }
 
     sparkContext.parallelize(matchList)
