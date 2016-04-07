@@ -6,7 +6,7 @@ import org.apache.spark.rdd.RDD
 
 import scala.collection.mutable.ArrayBuffer
 
-case class PhysicalDictView(dictName: String) extends LeafSparkNode{
+case class PhysicalDictView(dictName: String, output: Seq[String]) extends LeafSparkNode{
 
   override def doExecute(): RDD[Tuple] = {
     val input = aqlContext.getDocument
@@ -26,7 +26,7 @@ case class PhysicalDictView(dictName: String) extends LeafSparkNode{
 
 }
 
-case class PhysicalRegexView(regex: String) extends LeafSparkNode{
+case class PhysicalRegexView(regex: String, output: Seq[String]) extends LeafSparkNode{
 
   override def doExecute(): RDD[Tuple] = {
     val input = aqlContext.getDocument

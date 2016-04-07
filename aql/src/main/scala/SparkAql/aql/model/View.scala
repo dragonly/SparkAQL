@@ -19,7 +19,15 @@ class View(val aqlContext: AqlContext, val queryExecution: QueryExecution) exten
       qe
     })
   }
+  // view tuple schema
+  def schema: Seq[String] = queryExecution.analyzed.schema
 
+  def printSchema(): Unit = {
+    for(elem <- schema){
+      print(elem + " ")
+    }
+    println()
+  }
   /**
    * Represents the content of the View as an RDD of Tuples.
    */

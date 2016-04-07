@@ -30,7 +30,7 @@ class Analyzer(aqlContext: AqlContext, maxIterations: Int = 100)
       case u: UnresolvedDictView =>
         if(aqlContext.docSet){
           if(aqlContext.dictExists(u.DictName)){
-            val res = ResolvedDictView(aqlContext,u.DictName)
+            val res = ResolvedDictView(aqlContext,u.DictName,u.output)
             aqlContext.registerView(u.ViewName,res)
             res
           }else{
@@ -50,7 +50,7 @@ class Analyzer(aqlContext: AqlContext, maxIterations: Int = 100)
         if(aqlContext.docSet){
           try {
             Pattern.compile(u.regex)
-            val res = ResolvedRegexView(aqlContext,u.regex)
+            val res = ResolvedRegexView(aqlContext,u.regex,u.output)
             aqlContext.registerView(u.ViewName,res)
             res
           }catch {

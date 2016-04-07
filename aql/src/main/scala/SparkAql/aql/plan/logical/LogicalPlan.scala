@@ -12,6 +12,8 @@ abstract class LogicalPlan extends TreeNode[LogicalPlan] {
   //Has this logicalPlan been analyzed?
   def analyzed: Boolean = _analyzed
 
+  lazy val schema: Seq[String] = output
+
   /**
    * Returns a copy of this node where `rule` has been recursively applied first to all of its
    * children and then itself (post-order). When `rule` does not apply to a given node, it is left

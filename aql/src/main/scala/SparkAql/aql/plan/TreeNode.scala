@@ -4,6 +4,7 @@ import SparkAql.aql.exception.TreeNodeException
 
 abstract class TreeNode[BaseType <: TreeNode[BaseType]] extends Product{
   self: BaseType =>
+  def output:Seq[String]
   def children: Seq[BaseType]
 
   lazy val containsChild: Set[TreeNode[_]] = children.toSet

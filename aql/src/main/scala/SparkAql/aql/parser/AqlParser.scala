@@ -17,13 +17,13 @@ object AqlParser extends AbstractSparkAQLParser {
   protected lazy val start: Parser[LogicalPlan] = dictView|regexView
 
   protected lazy val dictView: Parser[LogicalPlan] =
-    EXTRACT ~> DICTIONARY ~> ident ~ (AS ~> ident) <~ FROM <~ DOCUMENT ^^ {
-      case dictName ~ viewName => UnresolvedDictView(dictName, viewName)
+    CREATE ~> VIEW ~> ident ~ (AS ~> EXTRACT ~> DICTIONARY ~> ident) ~ (AS ~> ident) <~ FROM <~ DOCUMENT ^^ {
+      case viewName ~ dictName ~ output => UnresolvedDictView(dictName, viewName, Seq(output))
     }
 
   protected lazy val regexView: Parser[LogicalPlan] =
-    EXTRACT ~> REGEX ~> stringLit ~ (AS ~> ident) <~ FROM <~ DOCUMENT ^^ {
-      case regex ~ viewName => UnresolvedRegexView(regex, viewName)
+    CREATE ~> VIEW ~> ident ~ (AS ~> EXTRACT ~> REGEX ~> stringLit) ~ (AS ~> ident) <~ FROM <~ DOCUMENT ^^ {
+      case viewName ~ regex ~ output => UnresolvedRegexView(regex, viewName, Seq(output))
     }
 
 }
